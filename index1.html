@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Registro</title>
+</head>
+
+<body>
+<label>Nombre:</label><br>
+<input type="text" id="nombre"> <br><br>
+
+<label>Edad:</label> <br><br>
+<input type="number" id="edad"> <br><br>
+
+<label>:</label> <br><br>
+<input type="date" id="fecha"> <br><br>
+
+<button onclick="enviar()">Guardar</button>
+
+<p id="mensaje"></p>
+
+<script>
+function enviar (){
+
+const nombre = document.getElementById("nombre").value;
+const edad = document.getElementById("edad").value;
+const fecha = document.getElementById("fecha").value;
+
+
+if (nombre===""|| edad === ""|| fecha=== "") {
+document.getElementById("mensaje").innerText = "Compñeta los Campos";
+
+return;
+}
+
+const datos = {
+    nombre: nombre,
+    edad: edad,
+    fecha: fecha
+}; //fetch va la direccion de la app de hojas de calculo
+//cambiar fetch
+fetch ("https://script.google.com/macros/s/AKfycbxRtRWqXxovKRkRyS-yEWXROhnrDdRaG4Bi9Q4GlnMvBYaWeqJWGJQpfFCnO7SnrkjK/execs://script.google.com/macros/s/AKfycbyrfDJgWytqm4T1SgYDuKwv71v85HaNBYAfphtaVbBvzFD9F8xpIAPcvcUVf8WsQNcv/exec", {
+
+method: "POST",
+body: JSON.stringify(datos),
+mode: "no-cors"
+})
+.then(()=> {
+document.getElementById("mensaje").innerText = "Datos enviados"
+
+})
+
+.catch (() => {
+document.getElementById("mensaje").innerText = "Error al enviar"
+
+});
+
+//limpiar
+document.getElementById("nombre").value = "";
+document.getElementById("edad").value = "";
+document.getElementById("fecha").value = "";
+
+
+
+}
+
+
+
+
+
+</script>
+
+</body>
+
+
+
+
+
+</html>
